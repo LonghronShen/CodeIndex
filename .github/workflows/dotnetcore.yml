@@ -61,6 +61,5 @@ jobs:
 
       - name: Build and Push the Docker image
         run: |
-          cd src
-          docker build -f CodeIndex.Server/Dockerfile -t qiuhaotc/codeindex:latest .
+          docker build -f ./src/CodeIndex.Server/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/codeindex:latest .
           docker push qiuhaotc/codeindex

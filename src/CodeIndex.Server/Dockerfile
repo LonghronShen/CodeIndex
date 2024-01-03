@@ -12,22 +12,31 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
 WORKDIR /src
-COPY ["CodeIndex.Server/CodeIndex.Server.csproj", "CodeIndex.Server/"]
-COPY ["CodeIndex.Common/CodeIndex.Common.csproj", "CodeIndex.Common/"]
-COPY ["CodeIndex.MaintainIndex/CodeIndex.MaintainIndex.csproj", "CodeIndex.MaintainIndex/"]
-COPY ["CodeIndex.Files/CodeIndex.Files.csproj", "CodeIndex.Files/"]
-COPY ["CodeIndex.IndexBuilder/CodeIndex.IndexBuilder.csproj", "CodeIndex.IndexBuilder/"]
-COPY ["CodeIndex.Search/CodeIndex.Search.csproj", "CodeIndex.Search/"]
-RUN dotnet restore "CodeIndex.Server/CodeIndex.Server.csproj"
+COPY ["src/CodeIndex.Server/CodeIndex.Server.csproj", "src/CodeIndex.Server/"]
+COPY ["src/CodeIndex.Common/CodeIndex.Common.csproj", "src/CodeIndex.Common/"]
+COPY ["src/CodeIndex.MaintainIndex/CodeIndex.MaintainIndex.csproj", "src/CodeIndex.MaintainIndex/"]
+COPY ["src/CodeIndex.Files/CodeIndex.Files.csproj", "src/CodeIndex.Files/"]
+COPY ["src/CodeIndex.IndexBuilder/CodeIndex.IndexBuilder.csproj", "src/CodeIndex.IndexBuilder/"]
+COPY ["src/CodeIndex.Search/CodeIndex.Search.csproj", "src/CodeIndex.Search/"]
+COPY ["src/Directory.Build.props", "src/Directory.Build.props"]
+
+RUN dotnet restore ./src/CodeIndex.Server/CodeIndex.Server.csproj
+
 COPY . .
-WORKDIR "/src/CodeIndex.Server"
-RUN dotnet build "CodeIndex.Server.csproj" -c Release -o /app/build
+
+RUN dotnet build ./src/CodeIndex.Server/CodeIndex.Server.csproj -c Release -o /app/build
 
 FROM build AS publish
+
+WORKDIR /src/src/CodeIndex.Server/
 RUN dotnet publish "CodeIndex.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+
 WORKDIR /app
+
 COPY --from=publish /app/publish .
+
 ENTRYPOINT ["dotnet", "CodeIndex.Server.dll"]
