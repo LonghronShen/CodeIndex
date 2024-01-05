@@ -3,7 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <PackageId Condition=" $(VendorName) != '' ">$(VendorName).$(AssemblyName)</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
