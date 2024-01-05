@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <PropertyGroup>
+        <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-    <PackageId Condition=" $(VendorName) != '' ">$(VendorName).$(AssemblyName)</PackageId>
-  </PropertyGroup>
+        <PackageId Condition=" $(VendorName) != '' ">$(VendorName).$(AssemblyName)</PackageId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CodeIndex.Common\CodeIndex.Common.csproj" />
-    <ProjectReference Include="..\CodeIndex.IndexBuilder\CodeIndex.IndexBuilder.csproj" />
-    <ProjectReference Include="..\CodeIndex.MaintainIndex\CodeIndex.MaintainIndex.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CodeIndex.Common\CodeIndex.Common.csproj" />
+        <ProjectReference Include="..\CodeIndex.IndexBuilder\CodeIndex.IndexBuilder.csproj" />
+        <ProjectReference Include="..\CodeIndex.MaintainIndex\CodeIndex.MaintainIndex.csproj" />
+    </ItemGroup>
 
 </Project>
