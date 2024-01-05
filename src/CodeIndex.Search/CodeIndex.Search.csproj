@@ -9,6 +9,10 @@
         <PackageId Condition=" $(VendorName) != '' ">$(VendorName).$(AssemblyName)</PackageId>
     </PropertyGroup>
 
+    <ItemGroup Condition=" $(TargetFramework) == 'net461' ">
+        <Reference Include="System.Web" />
+    </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\CodeIndex.Common\CodeIndex.Common.csproj" />
         <ProjectReference Include="..\CodeIndex.IndexBuilder\CodeIndex.IndexBuilder.csproj" />

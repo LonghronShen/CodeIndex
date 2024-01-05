@@ -53,10 +53,13 @@ namespace CodeIndex.Common
 
         public string[] ExcludedExtensionsArray => excludedExtensionsArray ??= GetSplitStringArray(ExcludedExtensions);
 
-        public (string CodeIndexFolder, string HintIndexFolder) GetFolders(string parentFolder)
+        public CodeIndexFolderInfo GetFolders(string parentFolder)
         {
             var rootFolder = GetRootFolder(parentFolder);
-            return (Path.Combine(rootFolder, CodeIndexConfiguration.CodeIndexFolder), Path.Combine(rootFolder, CodeIndexConfiguration.HintIndexFolder));
+            return new CodeIndexFolderInfo(
+                Path.Combine(rootFolder, CodeIndexConfiguration.CodeIndexFolder),
+                Path.Combine(rootFolder, CodeIndexConfiguration.HintIndexFolder)
+            );
         }
 
         public string GetRootFolder(string parentFolder)
@@ -82,7 +85,7 @@ namespace CodeIndex.Common
                 return Array.Empty<string>();
             }
 
-            return value.Split(SplitChar, StringSplitOptions.RemoveEmptyEntries);
+            return value.Split(new[] { SplitChar }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         string[] excludedPathsArray;
