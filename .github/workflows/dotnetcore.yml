@@ -28,7 +28,7 @@ jobs:
           dotnet restore
 
       - name: Build CodeIndex
-        run: dotnet build src/CodeIndex.sln  --configuration Release --no-restore
+        run: echo $VENDOR_NAME && dotnet build src/CodeIndex.sln --configuration Release --no-restore
         env:
           VENDOR_NAME: ${{ env.VENDOR_NAME }}
 
