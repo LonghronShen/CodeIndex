@@ -13,6 +13,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 
+ARG VENDOR_NAME
+
 WORKDIR /src
 COPY ["src/CodeIndex.Server/CodeIndex.Server.csproj", "src/CodeIndex.Server/"]
 COPY ["src/CodeIndex.Common/CodeIndex.Common.csproj", "src/CodeIndex.Common/"]
